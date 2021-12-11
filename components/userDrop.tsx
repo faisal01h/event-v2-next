@@ -2,7 +2,7 @@ import TextLoop from "react-text-loop";
 import Link from 'next/link'
 import { useState } from "react";
 import { useRouter } from "next/router";
-import useDetectClickOut from '../hooks/DetectClickOut'
+//import useDetectClickOut from '../hooks/DetectClickOut'
 
 export default function UserDrop(props: {user: any, faceColorClass?: string, greetings?:boolean}) {
 
@@ -13,7 +13,7 @@ export default function UserDrop(props: {user: any, faceColorClass?: string, gre
 
     let greetings = props.greetings ? props.greetings : false;
 
-    const { show, nodeRef, triggerRef } = useDetectClickOut(false);
+    //const { show, nodeRef, triggerRef } = useDetectClickOut(false);
 
     function expand() {
         setIsExpanded(!isExpanded);
@@ -45,7 +45,7 @@ export default function UserDrop(props: {user: any, faceColorClass?: string, gre
         <div className="text-white flex justify-end mx-5 lg:mx-8 select-none">
             
             {props.user !== null ? 
-            <div className={"px-3 py-1 items-end rounded-lg flex flex-col h-full w-fit" + cls} ref={triggerRef} onClick={_e=>expand()}>
+            <div className={"px-3 py-1 items-end rounded-lg flex flex-col h-full w-fit" + cls}  onClick={_e=>expand()}>
                 <TextLoop interval={[500, 0]} className={"cursor-pointer "+props.faceColorClass}>
                     {greetings ? <div className={" "+props.faceColorClass}>Selamat datang!</div> :" "}
                     <div className="flex flex-row flex-nowrap items-center min-w-[8rem]">
@@ -54,9 +54,9 @@ export default function UserDrop(props: {user: any, faceColorClass?: string, gre
                     </div>
                 </TextLoop>
                 {
-                    //isExpanded ? 
-                    show &&
-                    <div className={"py-1 px-1 my-3 gap-1 bg-white rounded-md shadow-xl min-w-[8rem] flex-col flex text-gray-800"} ref={nodeRef}>
+                    isExpanded ? 
+                    //show &&
+                    <div className={"py-1 px-1 my-3 gap-1 bg-white rounded-md shadow-xl min-w-[8rem] flex-col flex text-gray-800"} >
                         {
                             routes.map((e,index)=> {
                                 return (
@@ -73,7 +73,7 @@ export default function UserDrop(props: {user: any, faceColorClass?: string, gre
                             <Link href="/logout">Logout</Link>
                         </div>
                     </div>
-                    //: false
+                    : false
                 }
             </div>:
             <div className={"acrylic px-3 py-1 rounded-lg "+props.faceColorClass}>

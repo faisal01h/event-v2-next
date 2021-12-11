@@ -60,4 +60,12 @@ function useAuth() {
     return React.useContext(AuthContext);
 }
 
-export { AuthProvider, useAuth }
+const AuthConsumer = (props: {children: any}) => {
+    return (
+        <AuthContext.Consumer>
+            {props.children}
+        </AuthContext.Consumer>
+    )
+}
+
+export { AuthProvider, useAuth, AuthConsumer }

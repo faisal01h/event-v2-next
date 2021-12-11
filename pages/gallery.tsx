@@ -21,7 +21,7 @@ export default function Gallery() {
             <div className="mb-5 flex justify-between">
                 <button onClick={_e=>router.back()} className="flex items-center"><BsChevronLeft className="mr-2" />Back</button>
                 {user !== null ? 
-                <div className="absolute right-8 lg:right-20 z-50">
+                <div className="absolute right-0 lg:right-20 lg:-mx-8 z-50">
                     <UserDrop user={user} faceColorClass="text-black" />
                 </div> : false}
             </div>

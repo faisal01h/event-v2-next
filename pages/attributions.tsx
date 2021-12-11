@@ -61,7 +61,7 @@ export default function Attributions() {
                     <div className="flex flex-col gap-6">
                         <h1 className="text-6xl font-semibold">License</h1>
                         <div>
-                            <div className="flex flex-row gap-1 items-baseline"><GiScales /> Apache 2.0</div>
+                            <div className="flex flex-row gap-1 items-baseline"><GiScales /> MIT</div>
                         </div>
                         <div>
                             <pre className="whitespace-pre-wrap">

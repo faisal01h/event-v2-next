@@ -28,7 +28,7 @@ export default function Plans() {
             <div className="mb-5 flex justify-between">
                 <button onClick={_e=>router.back()} className="flex items-center"><BsChevronLeft className="mr-2" />Back</button>
                 {user !== null ? 
-                <div className="absolute right-8 lg:right-20">
+                <div className="absolute right-0 lg:right-20 lg:-mx-8">
                     <UserDrop user={user} faceColorClass="text-black" />
                 </div> : false}
             </div>
@@ -39,7 +39,7 @@ export default function Plans() {
                 user !== null ?
                 <div className="flex flex-col gap-5 mt-6 lg:mt-8">
                     <div className="h-96">
-                        <h2 className={"text-xs lg:text-lg font-regular uppercase p-1 border border-black w-fit "+evtStatusClass}>
+                        <h2 className={"text-xs lg:text-lg font-regular uppercase p-1 border w-fit "+evtStatusClass}>
                             {
                                 thisEvent && thisEvent?.datetime < new Date() ? "Event selesai" : "Wacana"
                             }

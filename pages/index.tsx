@@ -16,13 +16,12 @@ const Home: NextPage = () => {
 
   const Pecundang = new PecundangPlanKit();
   
+  const { user } = useAuth();
   const [ date, setDate ] = React.useState(Pecundang.getCurrent()?.datetime);
   const [ destination, setDestination ] = React.useState(Pecundang.getCurrent()?.name);
   const [ timeLeft, setTimeLeft ] = React.useState(['', '']);
   const [ weather, setWeather ] = React.useState<WeatherData>();
 
-  const { user } = useAuth();
-  //const [ initializingAuth, user ] = useAuthState(getAuth())
 
   React.useEffect(() => {
     const interval = setInterval(() => {
