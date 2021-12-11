@@ -18,7 +18,7 @@ export default function Plans() {
     let query = router.query;
 
     let thisEvent = Plans.getEvent(query.id)
-    let evtStatusClass = thisEvent && thisEvent?.datetime < new Date() ? "text-green-600 border-green-600" : "text-black"
+    let evtStatusClass = thisEvent && thisEvent?.datetime < new Date() ? "text-green-600 border-green-600" : "text-black border-black"
 
     return (
         <div className="px-8 lg:px-20 py-10 bg-gray-200 min-h-screen">
