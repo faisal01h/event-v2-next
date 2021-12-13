@@ -22,7 +22,7 @@ export default function Plans() {
     }
 
     let thisEvent = Plans.getEvent(query.id)
-    let evtStatusClass = eventIsPast(thisEvent) ? "text-green-800 border-green-800" : "text-black border-black"
+    let evtStatusClass = eventIsPast(thisEvent) ? "text-green-300 border-green-300" : "text-white border-white"
 
     return (
         <div className="px-8 lg:px-20 py-10 bg-gray-200 min-h-screen">
@@ -36,23 +36,23 @@ export default function Plans() {
                     <UserDrop user={user} faceColorClass="text-white" />
                 </div> : false}
             </div>
-            <div className="absolute top-0 left-0 z-0 h-[60vh] w-screen filter brightness-90" style={{backgroundImage: `url(/media/images/${thisEvent?.bgImg})`, backgroundSize: `cover`, backgroundPosition: `center`, backgroundRepeat: `no-repeat`}}></div>
-            <div className="absolute top-0 left-0 z-0 w-screen h-[70vh]" style={{background: `linear-gradient(to bottom, transparent, rgb(156, 163, 176), rgb(229, 231, 235))`}}></div>
+            <div className="absolute top-0 left-0 z-0 h-[70vh] w-screen filter brightness-[60%]" style={{backgroundImage: `url(/media/images/${thisEvent?.bgImg})`, backgroundSize: `cover`, backgroundPosition: `center`, backgroundRepeat: `no-repeat`}}></div>
+            <div className="absolute top-0 left-0 z-0 w-screen h-[95vh]" style={{background: `linear-gradient(to bottom, transparent, transparent, rgb(156, 163, 176), rgb(229, 231, 235))`}}></div>
             <div className="relative z-10">
-                <h1 className="text-6xl font-bold">Event</h1>
+                <h1 className="text-6xl font-bold text-white">Event</h1>
             </div>
             {
                 user !== null ?
                 <div className="relative z-10">
                     <div className="flex flex-col gap-5 mt-6 lg:mt-8">
-                        <div className="h-96">
+                        <div className="h-96 lg:h-[26rem]">
                             <h2 className={"text-xs lg:text-lg font-regular uppercase p-1 border w-fit "+evtStatusClass}>
                                 {
                                     eventIsPast(thisEvent) ? "Event selesai" : "Wacana"
                                 }
                             </h2>
                             {
-                                <div className="flex flex-col gap-2 mt-2 lg:mt-0">
+                                <div className="flex flex-col gap-2 mt-2 lg:mt-0 text-white">
                                     <h3 className="text-4xl lg:text-9xl font-medium tracking-wide uppercase">{thisEvent?.name}</h3>
                                     <p> 
                                         {
