@@ -33,19 +33,21 @@ export default function Gallery() {
                 <div className="flex flex-col gap-5 mt-6 lg:mt-8">
                     {
                         Plans.plans.map((e, i) => {
-                            return (
-                                <div key={i} className="flex flex-col gap-2 acrylic px-3 py-2 rounded-lg">
-                                    <div className="inline-flex gap-2">
-                                        <h3 className="font-medium tracking-wide uppercase">{e.name} </h3>
-                                        <span className="[font-weight:400] text-gray-500">{`${day["en"][e.datetime.getDay()].substring(0,3)}, ${e.datetime.getDate()} ${month[e.datetime.getMonth()]} ${e.datetime.getFullYear()}`}</span>
-                                        {/*<a className="text-gray-500" href={"https://www.google.com/maps/place/"+e.location.data} target={"_blank"}>{e.location.string}</a>*/}
+                            if(e.datetime.getTime() != 0) {
+                                return (
+                                    <div key={i} className="flex flex-col gap-2 acrylic px-3 py-2 rounded-lg">
+                                        <div className="inline-flex gap-2">
+                                            <h3 className="font-medium tracking-wide uppercase">{e.name} </h3>
+                                            <span className="[font-weight:400] text-gray-500">{`${day["en"][e.datetime.getDay()].substring(0,3)}, ${e.datetime.getDate()} ${month[e.datetime.getMonth()]} ${e.datetime.getFullYear()}`}</span>
+                                            {/*<a className="text-gray-500" href={"https://www.google.com/maps/place/"+e.location.data} target={"_blank"}>{e.location.string}</a>*/}
+                                        </div>
+                                        
+                                        <div className="min-h-[100px]">
+    
+                                        </div>
                                     </div>
-                                    
-                                    <div className="min-h-[100px]">
-
-                                    </div>
-                                </div>
-                            )
+                                )
+                            }
                         })
                     }
                 </div>    

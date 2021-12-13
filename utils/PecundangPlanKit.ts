@@ -43,7 +43,7 @@ export default class PecundangPlanKit {
         {
             id: 'P002',
             name: 'Lumajang',
-            bgImg: 'lumajang_cover.jpg',
+            bgImg: 'lumajang2_cover2.jpg',
             bgImgThemeColor: 'a9b593',
             location: {
                 data: ["-8.230067", "112.920134"],
@@ -64,6 +64,20 @@ export default class PecundangPlanKit {
                 string: 'Yogyakarta'
             },
             datetime: new Date('2022-01-03 14:00:00'),
+            members: [
+                12158, 12160, 12164, 12167
+            ],
+        },
+        {
+            id: 'W001',
+            name: 'Lumajang Part 2',
+            bgImg: 'lumajang_cover.jpg',
+            bgImgThemeColor: 'a9b593',
+            location: {
+                data: ["-8.230067", "112.920134"],
+                string: "Pronojiwo"
+            },
+            datetime: new Date(0),
             members: [
                 12158, 12160, 12164, 12167
             ],

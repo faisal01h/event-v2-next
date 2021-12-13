@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { BsChevronLeft } from 'react-icons/bs'
+import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 import UserDrop from "../../components/userDrop";
 import { useAuth } from "../../contexts/AuthContext";
-import PecundangPlanKit from "../../utils/PecundangPlanKit";
+import PecundangPlanKit, { IPlan } from "../../utils/PecundangPlanKit";
 import { getStNdRdTh, month } from "../../utils/Functions";
 import axios from "axios";
 import PlanCard from "../../components/PlanCard";
@@ -17,8 +17,12 @@ export default function Plans() {
 
     let query = router.query;
 
+    function eventIsPast(event: any): boolean {
+        return event && event.datetime < new Date() && event.datetime.getTime()!=0
+    }
+
     let thisEvent = Plans.getEvent(query.id)
-    let evtStatusClass = thisEvent && thisEvent?.datetime < new Date() ? "text-green-600 border-green-600" : "text-black border-black"
+    let evtStatusClass = eventIsPast(thisEvent) ? "text-green-600 border-green-600" : "text-black border-black"
 
     return (
         <div className="px-8 lg:px-20 py-10 bg-gray-200 min-h-screen">
@@ -41,15 +45,21 @@ export default function Plans() {
                     <div className="h-96">
                         <h2 className={"text-xs lg:text-lg font-regular uppercase p-1 border w-fit "+evtStatusClass}>
                             {
-                                thisEvent && thisEvent?.datetime < new Date() ? "Event selesai" : "Wacana"
+                                eventIsPast(thisEvent) ? "Event selesai" : "Wacana"
                             }
                         </h2>
                         {
                             <div className="flex flex-col gap-2 mt-2 lg:mt-0">
                                 <h3 className="text-4xl lg:text-9xl font-medium tracking-wide uppercase">{thisEvent?.name}</h3>
                                 <p> 
-                                    {month[thisEvent?.datetime.getMonth()? thisEvent.datetime.getMonth():0]} {thisEvent?.datetime.getDate()}{getStNdRdTh(thisEvent?.datetime.getDate())}{" "}
-                                    {thisEvent?.datetime.getFullYear()} at <a href={"https://www.google.com/maps/place/"+thisEvent?.location.data} target={"_blank"} rel="noreferrer">{thisEvent?.location.string}</a>
+                                    {
+                                        thisEvent?.datetime.getTime() != 0 ?
+                                            `${month[thisEvent?.datetime.getMonth() ? thisEvent.datetime.getMonth():0]} ${thisEvent?.datetime.getDate()}${getStNdRdTh(thisEvent?.datetime.getDate())}${" "}
+                                            ${thisEvent?.datetime.getFullYear()} at
+                                            `
+                                        : ""
+                                    }
+                                     <a href={"https://www.google.com/maps/place/"+thisEvent?.location.data} target={"_blank"} rel="noreferrer">{thisEvent?.location.string}</a>
                                 </p>
                             </div>
                         }
@@ -59,7 +69,7 @@ export default function Plans() {
                     </div>
                     <div>
                         <h2 className="text-xl lg:text-xl font-semibold">Event lainnya</h2>
-                        <div className="flex flex-row gap-3 mt-3 overflow-x-auto">
+                        <div className="flex flex-row gap-3 mt-3 overflow-x-auto pt-1 pb-3 pr-3">
                         {
                             Plans.plans.map((e, _index) => {
                                 if(thisEvent?.id !== e.id) {
@@ -69,6 +79,15 @@ export default function Plans() {
                                 }
                             })
                         }
+                            <div className={"px-5 py-3 select-none shadow rounded-lg flex flex-col gap-1 cursor-pointer justify-center lg:min-w-[40%] bg-gradient-to-r from-gray-300 to-gray-100"}>
+                                <div className="flex flex-row justify-between items-center">
+                                    <h3 className="text-3xl font-medium tracking-wide">Lihat event lainnya</h3>
+                                    <div className="p-3 bg-black text-white rounded-full">
+                                        <BsChevronRight />
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                     <div>

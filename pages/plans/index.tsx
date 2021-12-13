@@ -1,12 +1,13 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { BsChevronLeft } from 'react-icons/bs'
+import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 import UserDrop from "../../components/userDrop";
 import { useAuth } from "../../contexts/AuthContext";
 import PecundangPlanKit from "../../utils/PecundangPlanKit";
 import { getStNdRdTh, month } from "../../utils/Functions";
 import axios from "axios";
 import PlanCard from "../../components/PlanCard";
+import Link from "next/link";
 
 export default function Plans() {
 
@@ -14,7 +15,8 @@ export default function Plans() {
     const { user } = useAuth();
     const Plans = new PecundangPlanKit();
 
-    const cdt = Plans.getCurrent()?.datetime;
+    const current = Plans.getCurrent();
+    const cdt = current.datetime;
 
     function getGPlaceLocationData(query: string) {
         axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json?query='+query+'&key='+process.env.NEXT_PUBLIC_G_API_KEY)
@@ -43,7 +45,7 @@ export default function Plans() {
             </div>
             {
                 user !== null ?
-                <div className="flex flex-col space-y-3 mt-6 lg:mt-8">
+                <div className="flex flex-col gap-3 mt-6 lg:mt-8">
                     <div className="h-96 relative">
                         
                         <div className="">
@@ -52,8 +54,8 @@ export default function Plans() {
                                 <div className="flex flex-col gap-2">
                                     <h3 className="text-4xl lg:text-9xl font-medium tracking-wide uppercase">{Plans.getCurrent()?.name}</h3>
                                     <p> 
-                                        {month[cdt?.getMonth()? cdt?.getMonth():0]} {Plans.getCurrent()?.datetime.getDate()}{getStNdRdTh(Plans.getCurrent()?.datetime.getDate())}{" "}
-                                        {Plans.getCurrent()?.datetime.getFullYear()} at <a href={"https://www.google.com/maps/place/"+Plans.getCurrent().location.data} target={"_blank"} rel="noreferrer">{Plans.getCurrent().location.string}</a>
+                                        {month[cdt?.getMonth()? cdt?.getMonth():0]} {current.datetime.getDate()}{getStNdRdTh(current.datetime.getDate())}{" "}
+                                        {current.datetime.getFullYear()} at <a href={"https://www.google.com/maps/place/"+Plans.getCurrent().location.data} target={"_blank"} rel="noreferrer">{Plans.getCurrent().location.string}</a>
                                     </p>
                                 </div>
                             }
@@ -61,18 +63,23 @@ export default function Plans() {
                         </div>
                     </div>
                     <div>
-                    <h2 className="text-xl lg:text-2xl font-thin uppercase">Realisasi</h2>
+                        <h2 className="text-xl lg:text-2xl font-thin uppercase">Realisasi</h2>
                         <div className="flex flex-col gap-3 mt-3">
                         {
                             Plans.plans.map((e, index) => {
-                                if(index < Plans.plans.length-1) {
+                                if(Plans.plans[index].datetime < new Date() && Plans.plans[index].datetime.getTime() != 0) {
                                     return (
-                                        <PlanCard key={e.id} data={e} pecundangInstance={Plans} additionalClass="mx-2 min-w-[50%]" />
+                                        <PlanCard key={e.id} data={e} pecundangInstance={Plans} additionalClass="mx-0 min-w-[50%]" bgSize="cover" />
                                     )
                                 }
                             })
                         }
                         </div>
+                    </div>
+                    <div className="mt-5">
+                        <Link href="/plans/all">
+                            <a className="px-3 py-1 acrylic rounded-lg flex flex-row gap-1 w-fit items-center">Lihat semua acara <BsChevronRight /></a>
+                        </Link>
                     </div>
                 </div>    
                 :
