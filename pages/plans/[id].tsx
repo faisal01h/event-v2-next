@@ -32,7 +32,7 @@ export default function Plans() {
             <div className="mb-5 flex justify-between">
                 <button onClick={_e=>router.back()} className="flex items-center z-10 text-white"><BsChevronLeft className="mr-2" />Back</button>
                 {user !== null ? 
-                <div className="absolute right-0 lg:right-20 lg:-mx-8 z-10">
+                <div className="absolute right-0 lg:right-20 lg:-mx-8 z-50">
                     <UserDrop user={user} faceColorClass="text-white" />
                 </div> : false}
             </div>
