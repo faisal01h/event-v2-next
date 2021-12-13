@@ -4,7 +4,6 @@ import { BsChevronLeft } from "react-icons/bs";
 import UserDrop from "../../components/userDrop";
 import { useAuth } from "../../contexts/AuthContext";
 import PecundangPlanKit from "../../utils/PecundangPlanKit";
-import { getStNdRdTh, month } from "../../utils/Functions";
 import PlanCard from "../../components/PlanCard";
 
 export default function All() {
@@ -33,7 +32,7 @@ export default function All() {
                 <div className="flex flex-col gap-5 mt-6 lg:mt-8">
                     <div className="flex flex-col gap-1">
                         <h2 className="text-xl uppercase">Wacana</h2>
-                        <div className="flex flex-row gap-3 overflow-x-auto">
+                        <div className="flex flex-row gap-3 overflow-x-auto pt-1 pb-3">
                             {
                                 Plans.plans.map((e, i) => {
                                     if(e.datetime.getTime() == 0 || e.datetime > new Date()) {
@@ -47,7 +46,7 @@ export default function All() {
                     </div>
                     <div className="flex flex-col gap-1">
                         <h2 className="text-xl uppercase">Selesai</h2>
-                        <div className="flex flex-row gap-3 overflow-x-auto">
+                        <div className="flex flex-row gap-3 overflow-x-auto pt-1 pb-3">
                             {
                                 Plans.plans.map((e, i) => {
                                     if(e.datetime.getTime() != 0 && e.datetime < new Date()) {

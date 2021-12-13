@@ -121,5 +121,14 @@ export default class PecundangPlanKit {
         for(let i = 0; i < this.plans.length; i++) {
             if(this.plans[i].id === eventid) return this.plans[i];
         };
+        // return {
+        //     id: '',
+        //     name: '',
+        //     bgImg: '',
+        //     bgImgThemeColor: '',
+        //     location: {data:[], string:''},
+        //     datetime: new Date(),
+        //     members: []
+        // }
     }
 }
