@@ -36,7 +36,7 @@ export default function Plans() {
                     <UserDrop user={user} faceColorClass="text-white" />
                 </div> : false}
             </div>
-            <div className="absolute top-0 left-0 z-0 h-[60vh] w-screen filter brightness-50" style={{backgroundImage: `url(/media/images/${thisEvent?.bgImg})`, backgroundSize: `cover`, backgroundPosition: `center`, backgroundRepeat: `no-repeat`}}></div>
+            <div className="absolute top-0 left-0 z-0 h-[60vh] w-screen filter brightness-90" style={{backgroundImage: `url(/media/images/${thisEvent?.bgImg})`, backgroundSize: `cover`, backgroundPosition: `center`, backgroundRepeat: `no-repeat`}}></div>
             <div className="absolute top-0 left-0 z-0 w-screen h-[70vh]" style={{background: `linear-gradient(to bottom, transparent, rgb(156, 163, 176), rgb(229, 231, 235))`}}></div>
             <div className="relative z-10">
                 <h1 className="text-6xl font-bold">Event</h1>
