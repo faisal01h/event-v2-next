@@ -82,7 +82,7 @@ export default function Plans() {
                                     }
                                 })
                             }
-                                <div className={"px-5 py-3 select-none shadow rounded-lg flex flex-col gap-1 cursor-pointer justify-center lg:min-w-[40%] bg-gradient-to-r from-gray-300 to-gray-100"} onClick={_e=>{router.push("/plans/all")}}>
+                                <div className={"px-5 py-3 select-none shadow rounded-lg flex flex-col gap-1 cursor-pointer justify-center lg:min-w-[40%] min-w-[100%] bg-gradient-to-r from-gray-300 to-gray-100"} onClick={_e=>{router.push("/plans/all")}}>
                                     <div className="flex flex-row justify-between items-center">
                                         <h3 className="text-3xl font-medium tracking-wide">Lihat event lainnya</h3>
                                         <div className="p-3 bg-black text-white rounded-full">

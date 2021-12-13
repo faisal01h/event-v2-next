@@ -9,6 +9,16 @@ export function twoDigits(date: Date, mode: string):string {
       if(hr.length === 1) hr = '0'+hr
 
       return hr
+    } else if(mode === 'date') {
+      let hr = date.getDate().toString();
+      if(hr.length === 1) hr = '0'+hr
+
+      return hr
+    } else if(mode === 'month') {
+      let hr = date.getMonth().toString();
+      if(hr.length === 1) hr = '0'+hr
+
+      return hr
     }
     return ''
   }

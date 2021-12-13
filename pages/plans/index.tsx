@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
+import { BsCalendar2Event, BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 import UserDrop from "../../components/userDrop";
 import { useAuth } from "../../contexts/AuthContext";
 import PecundangPlanKit from "../../utils/PecundangPlanKit";
-import { getStNdRdTh, month } from "../../utils/Functions";
+import { getStNdRdTh, month, twoDigits } from "../../utils/Functions";
 import axios from "axios";
 import PlanCard from "../../components/PlanCard";
 import Link from "next/link";
@@ -51,19 +51,38 @@ export default function Plans() {
                         <div className="">
                             <h2 className="text-xl lg:text-2xl font-thin uppercase">Wacana</h2>
                             {
-                                <div className="flex flex-col gap-2">
-                                    <h3 className="text-4xl lg:text-9xl font-medium tracking-wide uppercase">{Plans.getCurrent()?.name}</h3>
-                                    <p> 
-                                        {month[cdt?.getMonth()? cdt?.getMonth():0]} {current.datetime.getDate()}{getStNdRdTh(current.datetime.getDate())}{" "}
-                                        {current.datetime.getFullYear()} at <a href={"https://www.google.com/maps/place/"+Plans.getCurrent().location.data} target={"_blank"} rel="noreferrer">{Plans.getCurrent().location.string}</a>
-                                    </p>
+                                <div className="flex flex-col gap-2 h-80 justify-between">
+                                    <div>
+                                        <h3 className="text-4xl lg:text-9xl font-medium tracking-wide uppercase">{Plans.getCurrent()?.name}</h3>
+                                        <p> 
+                                            {month[cdt?.getMonth()? cdt?.getMonth():0]} {current.datetime.getDate()}{getStNdRdTh(current.datetime.getDate())}{" "}
+                                            {current.datetime.getFullYear()} at <a href={"https://www.google.com/maps/place/"+Plans.getCurrent().location.data} target={"_blank"} rel="noreferrer">{Plans.getCurrent().location.string}</a>
+                                        </p>
+                                    </div>
+                                    {
+                                        cdt.getTime() != 0 ?
+                                        <div>
+                                            <button 
+                                            className="px-3 py-1 flex flex-row gap-1 items-center acrylic rounded-lg text-sm" 
+                                            onClick={() => {
+                                                window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${current.name}&dates=${current.datetime.getFullYear()}${twoDigits(current.datetime, 'month')}${twoDigits(current.datetime, 'date')}/${current.datetime.getFullYear()}${twoDigits(current.datetime, 'month')}${twoDigits(current.datetime, 'date')}&details=Hari%20H&location=${current.location.string}&trp=true`, '_blank')
+                                            }}>
+                                                <BsCalendar2Event /> Ingatkan saya
+                                            </button>
+                                        </div> : false
+                                    }
                                 </div>
                             }
                             {/*<div className="absolute z-0 -mx-8 lg:-mx-20 h-48 w-screen" style={{background: `linear-gradient(to bottom, rgb(229,231,235), #00000000 , #00000000, rgb(229,231,235)), url(/media/images/${Plans.getCurrent().bgImg}), no-repeat center`}}></div>*/}
                         </div>
                     </div>
                     <div>
-                        <h2 className="text-xl lg:text-2xl font-thin uppercase">Realisasi</h2>
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-xl lg:text-2xl font-thin uppercase">Realisasi</h2>
+                            <Link href="/plans/all">
+                                <a className="px-3 py-1 acrylic rounded-lg flex flex-row gap-1 w-fit items-center text-sm">Lihat semua acara <BsChevronRight /></a>
+                            </Link>
+                        </div>
                         <div className="flex flex-col gap-3 mt-3">
                         {
                             Plans.plans.map((e, index) => {
@@ -77,9 +96,7 @@ export default function Plans() {
                         </div>
                     </div>
                     <div className="mt-5">
-                        <Link href="/plans/all">
-                            <a className="px-3 py-1 acrylic rounded-lg flex flex-row gap-1 w-fit items-center">Lihat semua acara <BsChevronRight /></a>
-                        </Link>
+                        
                     </div>
                 </div>    
                 :
