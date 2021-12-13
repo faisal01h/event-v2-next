@@ -75,7 +75,7 @@ export default class PecundangPlanKit {
             bgImgThemeColor: 'a9b593',
             location: {
                 data: ["-8.230067", "112.920134"],
-                string: "Pronojiwo"
+                string: "Lumajang"
             },
             datetime: new Date(0),
             members: [
