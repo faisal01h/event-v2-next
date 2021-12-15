@@ -46,13 +46,13 @@ export default function UserDrop(props: {user: any, faceColorClass?: string, gre
             
             {props.user !== null ? 
             <div className={"px-3 py-1 items-end rounded-lg flex flex-col h-full w-fit" + cls}  onClick={_e=>expand()}>
-                <TextLoop interval={[500, 0]} className={"cursor-pointer "+props.faceColorClass}>
-                    {greetings ? <div className={" "+props.faceColorClass}>Selamat datang!</div> :" "}
-                    <div className="flex flex-row flex-nowrap items-center min-w-[8rem]">
+                {/* <TextLoop interval={[500, 0]} className={"cursor-pointer "+props.faceColorClass}> */}
+                    {/* {greetings ? <div className={" "+props.faceColorClass}>Selamat datang!</div> :" "} */}
+                    <div className="flex flex-row flex-nowrap items-center min-w-[8rem] cursor-pointer">
                         <img src={props.user.photoURL!==null?props.user.photoURL:undefined} alt="photo" className="h-6 w-6 mr-2 rounded-full" />
                         <span className={""+props.faceColorClass}>{props.user.displayName}</span>
                     </div>
-                </TextLoop>
+                {/* </TextLoop> */}
                 {
                     isExpanded ? 
                     //show &&

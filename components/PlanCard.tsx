@@ -15,8 +15,9 @@ export default function PlanCard(props: {data: IPlan, pecundangInstance: Pecunda
             <h3 className="text-3xl font-medium tracking-wide">{props.data.name}</h3>
             {
                 props.data.datetime.getTime() != 0 ?
-                <p>{month[props.data.datetime.getMonth()? props.data.datetime.getMonth():0]} {props.data.datetime.getDate()}{getStNdRdTh(props.data.datetime.getDate())} {props.data.datetime.getFullYear()} at <a href={"https://www.google.com/maps/place/"+props.data.location.data} target={"_blank"} rel="noreferrer">{props.data.location.string}</a></p>
-                : <a href={"https://www.google.com/maps/place/"+props.data.location.data} target={"_blank"} rel="noreferrer">{props.data.location.string}</a>
+                <p>{month[props.data.datetime.getMonth()? props.data.datetime.getMonth():0]} {props.data.datetime.getDate()}{getStNdRdTh(props.data.datetime.getDate())} {props.data.datetime.getFullYear()} at {props.data.location.string}</p>
+                // : <a href={"https://www.google.com/maps/place/"+props.data.location.data} target={"_blank"} rel="noreferrer">{props.data.location.string}</a>
+                : <p>{props.data.location.string}</p>
             }
             <MembersLoop pecundangInstance={props.pecundangInstance} pecundangEventId={props.data.id} interval={1000} innerClass="w-56" outerClass="w-64 h-11" />
         </div>

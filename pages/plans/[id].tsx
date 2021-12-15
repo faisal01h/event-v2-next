@@ -4,12 +4,20 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 import UserDrop from "../../components/userDrop";
 import { useAuth } from "../../contexts/AuthContext";
 import PecundangPlanKit, { IPlan } from "../../utils/PecundangPlanKit";
-import { getStNdRdTh, month } from "../../utils/Functions";
-import axios from "axios";
+import { getStNdRdTh, month, twoDigits } from "../../utils/Functions";
 import PlanCard from "../../components/PlanCard";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { addDoc, collection, doc, onSnapshot, setDoc } from "firebase/firestore";
+import { firestore } from "../../firebase/init";
+import { ReviewFormat } from "../../utils/Types";
+import ReviewList from "../../components/ReviewList";
 
 export default function Plans() {
+
+    const [ reviewContent, setReviewContent ] = useState<string>('');
+    const [ reloadComment, setReloadComment ] = useState<boolean>(false);
+
 
     const router = useRouter();
     const { user } = useAuth();
@@ -21,8 +29,28 @@ export default function Plans() {
         return event && event.datetime < new Date() && event.datetime.getTime()!=0
     }
 
+    function handleSubmitReview() {
+        if(reviewContent !== '') {
+            const collRef = collection(firestore, "ny-events/review", thisEvent?thisEvent.id:"")
+            const payload = {
+                id: user&&thisEvent ? user?.uid+thisEvent?.id+new Date().getTime() : new Date().getTime(),
+                author: user?.email,
+                text: reviewContent,
+                created_at: new Date().getTime()
+            }
+            addDoc(collRef, payload)
+            .then(e=> {
+                setReviewContent('');
+                setReloadComment(!reloadComment)
+            })
+            .catch(console.error)
+        }
+    }
+
+
     let thisEvent = Plans.getEvent(query.id)
     let evtStatusClass = eventIsPast(thisEvent) ? "text-green-300 border-green-300" : "text-white border-white"
+    
 
     return (
         <div className="px-8 lg:px-20 py-10 bg-gray-200 min-h-screen">
@@ -95,9 +123,9 @@ export default function Plans() {
                         </div>
                         <div>
                             <h2 className="text-xl lg:text-xl font-semibold">Review</h2>
-                            <div className="flex flex-col lg:flex-row">
+                            <div className="flex flex-col lg:flex-row gap-3">
                                 <div className="lg:sticky mt-3">
-                                    <textarea name="reviewin" id="reviewin" className="min-h-[5rem] w-[100%] lg:min-h-[5rem] lg:min-w-[32rem] resize-none rounded-lg px-3 py-2 outline-none focus:shadow-lg focus:shadow-blue-500/30 hover:shadow-blue-500/40" placeholder="Tulis review..." />
+                                    <textarea value={reviewContent} name="reviewin" id="reviewin" className="min-h-[5rem] w-[100%] lg:min-h-[5rem] lg:min-w-[32rem] resize-none rounded-lg px-3 py-2 outline-none focus:shadow-lg focus:shadow-blue-500/30 hover:shadow-blue-500/40" placeholder="Tulis review..." onChange={e=>{setReviewContent(e.currentTarget.value)}} />
                                     <div className="flex flex-col lg:flex-row lg:gap-3 lg:justify-between">
                                         <div>
                                             <span className="flex flex-row items-start gap-1">
@@ -109,14 +137,20 @@ export default function Plans() {
                                                 
                                             </span>
                                         </div>
-                                        <button type="submit" className="bg-green-500 text-white rounded-lg px-3 py-1 shadow-xl hover:shadow-green-500/30">Simpan</button>
+                                        <button 
+                                        type="submit" 
+                                        className="bg-green-500 text-white rounded-lg px-3 py-1 shadow-xl hover:shadow-green-500/30" 
+                                        onClick={() => {
+                                            handleSubmitReview()
+                                        }}>
+                                            Simpan
+                                        </button>
                                     </div>
                                 </div>
-                                <div>
-                                    {/**
-                                     * Review list here
-                                    */}
-                                </div>
+                                
+                                <ReviewList eventId={thisEvent?thisEvent.id:""} reload={reloadComment} />
+
+                                
                             </div>
                         </div>
                     </div>  

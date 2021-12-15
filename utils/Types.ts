@@ -21,3 +21,10 @@ export interface WeatherData {
       }>
     }
   }
+
+export type ReviewFormat = {
+  id: string,
+  author: string,
+  created_at: number,
+  text: string
+}

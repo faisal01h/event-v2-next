@@ -5,6 +5,7 @@ import 'firebase/firestore'
 import 'firebase/storage'
 import { getAnalytics } from 'firebase/analytics'
 import 'firebase/performance'
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -42,3 +43,5 @@ if(getApps().length) {
 }
 
 export default app;
+
+export const firestore = getFirestore();
