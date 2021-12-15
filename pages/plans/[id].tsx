@@ -105,7 +105,7 @@ export default function Plans() {
                                 Plans.plans.map((e, _index) => {
                                     if(thisEvent?.id !== e.id) {
                                         return (
-                                            <PlanCard key={e.id} data={e} pecundangInstance={Plans} additionalClass="lg:min-w-[40%]" />
+                                            <PlanCard key={e.id} data={e} pecundangInstance={Plans} additionalClass="min-w-[100%] lg:min-w-[40%]" />
                                         )
                                     }
                                 })
