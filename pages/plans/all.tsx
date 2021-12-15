@@ -37,7 +37,7 @@ export default function All() {
                                 Plans.plans.map((e, i) => {
                                     if(e.datetime.getTime() == 0 || e.datetime > new Date()) {
                                         return (
-                                            <PlanCard key={i} pecundangInstance={Plans} data={e} additionalClass="lg:min-w-[40%]" />
+                                            <PlanCard key={i} pecundangInstance={Plans} data={e} additionalClass="min-w-[95%] lg:min-w-[40%]" />
                                         )
                                     }
                                 })
@@ -51,7 +51,7 @@ export default function All() {
                                 Plans.plans.map((e, i) => {
                                     if(e.datetime.getTime() != 0 && e.datetime < new Date()) {
                                         return (
-                                            <PlanCard key={i} pecundangInstance={Plans} data={e} additionalClass="lg:min-w-[40%]" />
+                                            <PlanCard key={i} pecundangInstance={Plans} data={e} additionalClass="min-w-[95%] lg:min-w-[40%]" />
                                         )
                                     }
                                 })
