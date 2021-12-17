@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore"
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore"
 import { useEffect, useState } from "react";
 import { BsXCircle } from "react-icons/bs";
 import { useAuth } from "../contexts/AuthContext";
@@ -12,34 +12,40 @@ export default function ReviewList(props: {eventId: string, reload: boolean}) {
     function getReview() {
         
         const collRef = collection(firestore, "ny-events/review", props.eventId)
+        //const q = query(collRef, orderBy("timestamp"))
         //const docRef = doc(firestore, "reviews", thisEvent?thisEvent.id:"")
         let rev: Array<ReviewFormat> = [] //
+        setReviews([])
         onSnapshot(collRef, (e) => {
-            console.log(e.docs.map((doc) => {
+            
+            e.docs.map((doc) => {
                 let data = doc.data()
                 if(data) {
                     
                     rev.push({
-                        id: data.id,
+                        id: doc.id,
                         author: data.author,
                         text: data.text,
                         created_at: data.created_at
                     })
                     
-                    
-                    // console.log(rev.length)
                 }
                 
-            }))
+            })
             setReviews(rev)
         })
+        
         
         
     }
 
     function deleteReview(reviewObject : ReviewFormat) {
-        const docRef = doc(firestore, "reviews", props.eventId, reviewObject.id)
+        const docRef = doc(firestore, "ny-events/review", props.eventId, reviewObject.id)
         deleteDoc(docRef)
+        .then(e=> {
+            getReview()
+        })
+        .catch(console.error)
     }
 
     useEffect(() => {
@@ -52,7 +58,7 @@ export default function ReviewList(props: {eventId: string, reload: boolean}) {
             
             {
                 reviews.length > 0 ? reviews.map((e, i) => {
-                    const date = new Date(e.created_at)
+                    const date = new Date(e.created_at?.seconds*1000)
                     return (
                         <div key={i} className="acrylic px-3 py-2 flex flex-col gap-0 rounded-lg">
                             {

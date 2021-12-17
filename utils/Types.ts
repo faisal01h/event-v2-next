@@ -25,6 +25,9 @@ export interface WeatherData {
 export type ReviewFormat = {
   id: string,
   author: string,
-  created_at: number,
+  created_at: {
+    seconds: number,
+    nanoseconds: number
+  },
   text: string
 }

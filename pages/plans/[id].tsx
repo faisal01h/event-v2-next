@@ -8,7 +8,7 @@ import { getStNdRdTh, month, twoDigits } from "../../utils/Functions";
 import PlanCard from "../../components/PlanCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { addDoc, collection, doc, onSnapshot, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 import { firestore } from "../../firebase/init";
 import { ReviewFormat } from "../../utils/Types";
 import ReviewList from "../../components/ReviewList";
@@ -33,10 +33,9 @@ export default function Plans() {
         if(reviewContent !== '') {
             const collRef = collection(firestore, "ny-events/review", thisEvent?thisEvent.id:"")
             const payload = {
-                id: user&&thisEvent ? user?.uid+thisEvent?.id+new Date().getTime() : new Date().getTime(),
                 author: user?.email,
                 text: reviewContent,
-                created_at: new Date().getTime()
+                created_at: serverTimestamp()
             }
             addDoc(collRef, payload)
             .then(e=> {
