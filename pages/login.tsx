@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import Head from "next/head"
 import { useAuth } from "../contexts/AuthContext"
 import Link from "next/link";
+import Router from "next/router";
 import { BsChevronLeft, BsGoogle } from "react-icons/bs";
 
 export default function Login() {
@@ -10,9 +11,8 @@ export default function Login() {
 
     useEffect(() => {
         if(user !== null) {
-            window.location.href="/"
+            Router.push("/login-verify")
         }
-        console.log(user)
     }, [user])
 
     return (

@@ -10,9 +10,9 @@ module.exports = {
   publicRuntimeConfig: {
     version,
   },
-  i18n: {
-    locales: ['id', 'en'],
-    defaultLocale: 'id',
-    localeDetection: false
-  },
+  // i18n: {
+  //   locales: ['id', 'en'],
+  //   defaultLocale: 'id',
+  //   localeDetection: false
+  // },
 }

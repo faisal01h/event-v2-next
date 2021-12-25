@@ -7,10 +7,9 @@ import PecundangPlanKit, { IPlan } from "../../utils/PecundangPlanKit";
 import { getStNdRdTh, month, twoDigits } from "../../utils/Functions";
 import PlanCard from "../../components/PlanCard";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { addDoc, collection, doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
+import { useState } from "react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { firestore } from "../../firebase/init";
-import { ReviewFormat } from "../../utils/Types";
 import ReviewList from "../../components/ReviewList";
 
 export default function Plans() {
@@ -33,7 +32,7 @@ export default function Plans() {
         if(reviewContent !== '') {
             const collRef = collection(firestore, "ny-events/review", thisEvent?thisEvent.id:"")
             const payload = {
-                author: user?.email,
+                author: user?.uid,
                 text: reviewContent,
                 created_at: serverTimestamp()
             }
@@ -63,7 +62,7 @@ export default function Plans() {
                     <UserDrop user={user} faceColorClass="text-white" />
                 </div> : false}
             </div>
-            <div className="absolute top-0 left-0 z-0 h-[70vh] w-screen filter brightness-[60%]" style={{backgroundImage: `url(/media/images/${thisEvent?.bgImg})`, backgroundSize: `cover`, backgroundPosition: `center`, backgroundRepeat: `no-repeat`}}></div>
+            <div className="absolute top-0 left-0 z-0 h-[70vh] w-screen filter brightness-[60%]" style={{backgroundImage: `url(/media/images/${thisEvent? thisEvent.bgImg : "gray.jpg"})`, backgroundSize: `cover`, backgroundPosition: `center`, backgroundRepeat: `no-repeat`}}></div>
             <div className="absolute top-0 left-0 z-0 w-screen h-[95vh]" style={{background: `linear-gradient(to bottom, transparent, transparent, rgb(156, 163, 176), rgb(229, 231, 235))`}}></div>
             <div className="relative z-10">
                 <h1 className="text-6xl font-bold text-white">Event</h1>

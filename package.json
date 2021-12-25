@@ -1,6 +1,8 @@
 {
   "name": "event-v2-n-ts",
+  "version": "0.9.1",
   "private": true,
+  "homepage": "https://pecundang.events.faisalhnf.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
