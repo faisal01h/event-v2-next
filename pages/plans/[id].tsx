@@ -39,7 +39,7 @@ export default function Plans() {
             addDoc(collRef, payload)
             .then(e=> {
                 setReviewContent('');
-                setReloadComment(!reloadComment)
+                // setReloadComment(!reloadComment)
             })
             .catch(console.error)
         }

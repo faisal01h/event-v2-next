@@ -53,10 +53,8 @@ export default function UserDrop(props: {user: any, faceColorClass?: string, gre
                         <span className={""+props.faceColorClass}>{props.user.displayName}</span>
                     </div>
                 {/* </TextLoop> */}
-                {
-                    isExpanded ? 
-                    //show &&
-                    <div className={"py-1 px-1 my-3 gap-1 bg-white rounded-md shadow-xl min-w-[8rem] flex-col flex text-gray-800"} >
+                
+                    <div className={`py-1 px-1 my-3 gap-1 bg-white rounded-md shadow-xl min-w-[8rem] flex-col flex text-gray-800 transform transition-all ${isExpanded ? "-translate-y-0" : "-translate-y-[250px]"}`} >
                         {
                             routes.map((e,index)=> {
                                 return (
@@ -73,8 +71,8 @@ export default function UserDrop(props: {user: any, faceColorClass?: string, gre
                             <Link href="/logout">Logout</Link>
                         </div>
                     </div>
-                    : false
-                }
+                    
+                
             </div>:
             <div className={"acrylic px-3 py-1 rounded-lg "+props.faceColorClass}>
                 <Link href="/login">Login</Link>
