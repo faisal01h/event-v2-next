@@ -205,7 +205,7 @@ export default function Plans() {
                             <h2 className="text-xl lg:text-xl font-semibold">Review</h2>
                             <div className="flex flex-col lg:flex-row gap-3">
                                 <div className="lg:sticky mt-3">
-                                    <textarea value={reviewContent} name="reviewin" id="reviewin" className="min-h-[5rem] w-[100%] lg:min-h-[5rem] lg:min-w-[32rem] resize-none rounded-lg px-3 py-2 outline-none focus:shadow-lg focus:shadow-blue-500/30 hover:shadow-blue-500/40" placeholder="Tulis review..." onChange={e=>{setReviewContent(e.currentTarget.value)}} />
+                                    <textarea disabled value={reviewContent} name="reviewin" id="reviewin" className="min-h-[5rem] w-[100%] lg:min-h-[5rem] lg:min-w-[32rem] resize-none rounded-lg px-3 py-2 outline-none focus:shadow-lg focus:shadow-blue-500/30 hover:shadow-blue-500/40" placeholder="Tulis review..." onChange={e=>{setReviewContent(e.currentTarget.value)}} />
                                     <div className="flex flex-col lg:flex-row lg:gap-3 lg:justify-between">
                                         <div>
                                             <span className="flex flex-row items-start gap-1">
@@ -228,7 +228,7 @@ export default function Plans() {
                                     </div>
                                 </div>
                                 
-                                {/* <ReviewList eventId={thisEvent?thisEvent.id:""} reload={reloadComment} /> */}
+                                <ReviewList eventId={data?data.id:""} reload={reloadComment} />
 
                                 
                             </div>

@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { BsChevronLeft } from 'react-icons/bs'
-import UserDrop from "../components/userDrop";
-import { useAuth } from "../contexts/AuthContext";
-import { day, month } from "../utils/Functions";
-import PecundangPlanKit from "../utils/PecundangPlanKit";
+import UserDrop from "../../components/userDrop";
+import { useAuth } from "../../contexts/AuthContext";
+import { day, month } from "../../utils/Functions";
+import PecundangPlanKit from "../../utils/PecundangPlanKit";
 
 export default function Gallery() {
 
