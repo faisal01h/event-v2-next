@@ -1,11 +1,21 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { BsChevronLeft } from 'react-icons/bs'
 import { GiScales } from 'react-icons/gi'
+import AOS from 'aos';
+import "aos/dist/aos.css";
 
 export default function Attributions() {
 
     const router = useRouter();
+
+    useEffect(() => {
+        AOS.init({
+            easing: "ease-in-out-cubic",
+            duration: 300
+        })
+    }, [])
 
     return (
         <div className="px-8 lg:px-20 py-10 bg-gray-200 min-h-screen">
@@ -16,7 +26,7 @@ export default function Attributions() {
                 <button onClick={_e=>router.back()} className="flex items-center"><BsChevronLeft className="mr-2" />Back</button>
             </div>
             <div className="flex flex-col gap-10">
-                <div className="flex flex-col gap-0">
+                <div className="flex flex-col gap-0" data-aos="slide-up">
                     <div>
                         <h1 className="text-6xl font-semibold">Attributions</h1>
                     </div>
@@ -57,7 +67,7 @@ export default function Attributions() {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-0">
+                <div className="flex flex-col gap-0" data-aos="slide-up">
                     <div className="flex flex-col gap-6">
                         <h1 className="text-6xl font-semibold">License</h1>
                         <div>

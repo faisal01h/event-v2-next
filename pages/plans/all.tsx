@@ -3,14 +3,80 @@ import { useRouter } from "next/router";
 import { BsChevronLeft } from "react-icons/bs";
 import UserDrop from "../../components/userDrop";
 import { useAuth } from "../../contexts/AuthContext";
-import PecundangPlanKit from "../../utils/PecundangPlanKit";
+import PecundangPlanKit, { IPlan2 } from "../../utils/PecundangPlanKit";
 import PlanCard from "../../components/PlanCard";
+import { useEffect, useState } from "react";
+import { collection, doc, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import { firestore, storage } from "../../firebase/init";
+import { getDownloadURL, ref } from "firebase/storage";
 
 export default function All() {
 
     let { user } = useAuth()
     let router = useRouter()
     const Plans = new PecundangPlanKit()
+    const [ plans, setPlans ] = useState<Array<IPlan2>>([]);
+    const [ wacana, setWacana ] = useState<Array<IPlan2>>([]);
+    const [ selesai, setSelesai ] = useState<Array<IPlan2>>([]);
+    const [ loadStage, setLoadStage ] = useState<Number>(0);
+
+    function getPlans() {
+        const colRef = collection(firestore, "ny-events")
+        let data: Array<IPlan2>  = []
+        setLoadStage(0);
+
+        getDocs(query(colRef))
+        .then((e) => {
+            
+            e.docs.forEach((el) => {
+                getDownloadURL(ref(storage, `ny-events/${el.data().eid}/${el.data().bgImg}`))
+                .then((f) => {
+                    let temp = {
+                        id: el.id,
+                        eid: el.data().eid,
+                        bgImg: f.toString(),
+                        bgImgThemeColor: el.data().bgImgThemeColor,
+                        date: el.data().date,
+                        location: el.data().location,
+                        members: el.data().members,
+                        name: el.data().name,
+                        review: el.data().review,
+                        added_by: el.data().added_by
+                    }
+                    data.push(temp)
+                    setPlans(data)
+                    // setPlans(plans.concat([temp]))
+
+                }).catch(console.error)
+                
+            })
+            
+            
+            
+        })
+        .then((_e) => {
+            // setPlans(data)
+            // console.log(plans, `len: ${plans.length}`)
+            setLoadStage(1);
+        })
+        .catch(console.error)
+    }
+
+    useEffect(() => {
+        getPlans()
+        
+    }, [])
+    useEffect(() => {
+        if(plans.length > 0) {
+            plans.forEach((e, i) => {
+                if(e.date.seconds == 0 || new Date(e.date.seconds*1000) > new Date()) {
+                    setWacana(wacana.concat([e]))
+                } else if(e.date.seconds != 0 && new Date(e.date.seconds*1000) < new Date()) {
+                    setSelesai(selesai.concat([e]))
+                }
+            })
+        }
+    }, [plans])
 
     return (
         <div className="px-8 lg:px-20 py-10 bg-gray-200 min-h-screen">
@@ -34,13 +100,13 @@ export default function All() {
                         <h2 className="text-xl uppercase">Wacana</h2>
                         <div className="flex flex-row gap-3 overflow-x-auto pt-1 pb-3">
                             {
-                                Plans.plans.map((e, i) => {
-                                    if(e.datetime.getTime() == 0 || e.datetime > new Date()) {
-                                        return (
-                                            <PlanCard key={i} pecundangInstance={Plans} data={e} additionalClass="min-w-[95%] lg:min-w-[40%]" />
-                                        )
-                                    }
-                                })
+                                wacana.length > 0 ? wacana.map((e, i) => {
+                                    
+                                    return (
+                                        <PlanCard key={i} pecundangInstance={Plans} data={e} additionalClass="min-w-[95%] lg:min-w-[40%]" />
+                                    )
+                                    
+                                }) : loadStage === 0 ? "Loading" : "Tidak ada wacana."
                             }
                         </div>
                     </div>
@@ -48,13 +114,13 @@ export default function All() {
                         <h2 className="text-xl uppercase">Selesai</h2>
                         <div className="flex flex-row gap-3 overflow-x-auto pt-1 pb-3">
                             {
-                                Plans.plans.map((e, i) => {
-                                    if(e.datetime.getTime() != 0 && e.datetime < new Date()) {
+                                selesai.length > 0 ? selesai.map((e, i) => {
+                                    
                                         return (
                                             <PlanCard key={i} pecundangInstance={Plans} data={e} additionalClass="min-w-[95%] lg:min-w-[40%]" />
                                         )
-                                    }
-                                })
+                                    
+                                }) : loadStage === 0 ? "Loading" : "Tidak ada event selesai."
                             }
                         </div>
                     </div>

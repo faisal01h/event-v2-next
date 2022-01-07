@@ -18,6 +18,19 @@ export interface IPlan {
     members: Array<Number>
 }
 
+export interface IPlan2 {
+    id: string,
+    eid: string,
+    name: string,
+    bgImg: string,
+    bgImgThemeColor: string,
+    location: LocationData,
+    date: any,
+    members: Array<string>,
+    review: Array<object>,
+    added_by: string
+}
+
 export default class PecundangPlanKit {
 
     members = [
@@ -63,7 +76,7 @@ export default class PecundangPlanKit {
                 data: ["-7.796687", "110.369152"],
                 string: 'Yogyakarta'
             },
-            datetime: new Date('2022-01-03 14:00:00'),
+            datetime: new Date(0),
             members: [
                 12158, 12160, 12164, 12167
             ],
@@ -77,7 +90,7 @@ export default class PecundangPlanKit {
                 data: ["-8.230067", "112.920134"],
                 string: "Lumajang"
             },
-            datetime: new Date(0),
+            datetime: new Date('2022-03-01 07:00'),
             members: [
                 12158, 12160, 12164, 12167
             ],

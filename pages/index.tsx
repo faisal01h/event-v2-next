@@ -100,7 +100,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="absolute top-0 h-screen w-screen z-0 bg-no-repeat bg-cover" style={{background: `url('/media/images/${Pecundang.getCurrent()?.bgImg}') center`}}>
+      <div className="absolute top-0 h-screen w-screen z-0 bg-no-repeat bg-cover" style={{background: `url('/media/images/${Pecundang.getCurrent()?.bgImg}') center`, backgroundSize: 'cover'}}>
       </div>
 
       <div className="absolute top-7 w-screen">
@@ -169,7 +169,7 @@ const Home: NextPage = () => {
                       let wfDate = new Date(e.dt_txt)
                       
                       return (
-                        <div key={e.dt} className="flex flex-col acrylic my-5 p-3 rounded-lg select-none">
+                        <div key={e.dt} className="flex flex-col acrylic my-5 p-3 rounded-lg select-none hover:transform hover:scale-105 transition-all duration-[350ms] ease-in-out hover:shadow-lg">
                           
                           <img src={"https://openweathermap.org/img/wn/"+e.weather[0].icon+"@4x.png"} width="100" className="self-center" alt="weather icon" />
                           

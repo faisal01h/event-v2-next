@@ -54,7 +54,7 @@ export default function UserDrop(props: {user: any, faceColorClass?: string, gre
                     </div>
                 {/* </TextLoop> */}
                 
-                    <div className={`py-1 px-1 my-3 gap-1 bg-white rounded-md shadow-xl min-w-[8rem] flex-col flex text-gray-800 transform transition-all ${isExpanded ? "-translate-y-0" : "-translate-y-[250px]"}`} >
+                    <div className={`py-1 px-1 my-3 gap-1 bg-white rounded-md shadow-xl min-w-[8rem] flex-col flex text-gray-800 transform transition-all z-50 ${isExpanded ? "-translate-y-0" : "-translate-y-[250px]"}`} >
                         {
                             routes.map((e,index)=> {
                                 return (
