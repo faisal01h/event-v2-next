@@ -201,7 +201,7 @@ export default function Plans() {
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        {/* <div>
                             <h2 className="text-xl lg:text-xl font-semibold">Review</h2>
                             <div className="flex flex-col lg:flex-row gap-3">
                                 <div className="lg:sticky mt-3">
@@ -232,7 +232,7 @@ export default function Plans() {
 
                                 
                             </div>
-                        </div>
+                        </div> */}
                     </div>  
                 </div>  
                 :
