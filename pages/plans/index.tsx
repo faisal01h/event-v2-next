@@ -174,7 +174,7 @@ export default function Plans() {
                         <div className="flex flex-col gap-3 mt-3">
                         {
                             plans.map((e, index) => {
-                                if(Plans.plans[index].datetime < new Date() && Plans.plans[index].datetime.getTime() != 0) {
+                                if(e.date.seconds*1000 < new Date().getTime() && e.date.seconds != 0) {
                                     return (
                                         <PlanCard key={e.id} data={e} pecundangInstance={Plans} additionalClass="mx-0 min-w-[50%]" bgSize="cover" />
                                     )
