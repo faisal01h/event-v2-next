@@ -45,6 +45,7 @@ const Home: NextPage = () => {
   }
 
   function getWeatherInfo(location: any) {
+    if(!location) return;
     console.log('[FETCH]', new Date().getTime(), 'Refreshing weather data...');
     const host: string = "https://api.openweathermap.org/data/2.5/";
     const key = process.env.NEXT_PUBLIC_OWM_API_KEY;
@@ -93,7 +94,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div style={{background: '#'+Pecundang.getCurrent().bgImgThemeColor}}>
+    <div style={{background: '#'+Pecundang.getCurrent()?.bgImgThemeColor}}>
       <Head>
         <title>Pecundang</title>
         <meta name="description" content="Events by Faisal" />
@@ -131,7 +132,7 @@ const Home: NextPage = () => {
         <div className="absolute bottom-3 flex flex-row">
           <div className="mr-3">
             <h3 className="font-semibold">Dihadiri oleh</h3>
-            <MembersLoop interval={1500} pecundangInstance={Pecundang} pecundangEventId={Pecundang.getCurrent().id} innerClass="w-56" outerClass="w-64 h-11" />
+            <MembersLoop interval={1500} pecundangInstance={Pecundang} pecundangEventId={Pecundang.getCurrent()?.id} innerClass="w-56" outerClass="w-64 h-11" />
           </div>
         </div>
       </div> 
@@ -191,7 +192,7 @@ const Home: NextPage = () => {
             </div>
           </div>
       </div>
-      <Footer color={''} bgColor={Pecundang.getCurrent().bgImgThemeColor}/>
+      <Footer color={''} bgColor={Pecundang.getCurrent()?.bgImgThemeColor}/>
     </div>
   )
 }

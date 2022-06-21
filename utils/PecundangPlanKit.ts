@@ -119,7 +119,7 @@ export default class PecundangPlanKit {
 
         let result: Array<EventMembers> = [];
         
-        for(let j:number = 0; j < this.plans[i].members.length; ++j ) {
+        for(let j:number = 0; j < this.plans[i]?.members.length; ++j ) {
             for(let k:number = 0; k < this.members.length; ++k) {
                 if(this.plans[i].members[j] === this.members[k].id) {
                     result.push(this.members[k])
